@@ -1,16 +1,16 @@
-#!/usr/bin/env python
-# coding: utf-8
+def WEBIO(): 
+    #!/usr/bin/env python
+    # coding: utf-8
 
-# In[185]:
+    # In[185]:
 
-def WEBIO():
-# Read in the data
+
+    # Read in the data
 
     import pandas as pd
     import re
-    import streamlit as st
 
-    
+
     df1 = pd.read_excel("C:\\Users\\avida\\freeweibo-09-15-2022.xlsx")
     #df.index.names = ['row_id']
 
@@ -49,6 +49,7 @@ def WEBIO():
 
 
     # Remove rows where content is 'NaN'
+
     # df = df.dropna()  drop rows that contain 'NaN' in any column
     new_df = df2.dropna(subset=['content'])  # drop rows that contain 'NaN' in the content column
 
@@ -160,6 +161,7 @@ def WEBIO():
     for i in range(10):
         print(segmented_content_list[i])
 
+
     # In[190]:
 
 
@@ -170,6 +172,7 @@ def WEBIO():
     x = word_df['words'][0]
 
     print(" ".join(x))
+
 
     # In[191]:
 
@@ -233,7 +236,7 @@ def WEBIO():
     print(len(model))
     print(random.choice(model.index_to_key))
     model_vocab = []
-    # # Print all the words in the vocabulary for the model
+    # Print all the words in the vocabulary for the model
     for i in range(len(model)):
     #    print(model.index_to_key[i])
         model_vocab.append(model.index_to_key[i])
@@ -249,45 +252,45 @@ def WEBIO():
 
     ######################################################################################################
 
-    import pandas as pd
+    #import pandas as pd
 
     # We extract all the freeweibo posts that were used to create our model. freeweibo_posts.txt
-    with open('freeweibo_words.txt', encoding="utf8") as f:
-        freeweibo_posts = f.readlines()
+    #with open('freeweibo_words.txt', encoding="utf8") as f:
+    #    freeweibo_posts = f.readlines()
 
-    post_list = []
-    final_weibos = []  # This list contains the words that exist in our model for each freeweibo post 
-    oov = []           # oov = out of vocabulary words
+    #post_list = []
+    #final_weibos = []  # This list contains the words that exist in our model for each freeweibo post 
+    #oov = []           # oov = out of vocabulary words
 
 
     # The final_weibos post contains one list with all the posts.  We want each post to be stored in its own list
     # The for loop converts a list of all posts into individual lists for each post.
     # Code modified from https://www.geeksforgeeks.org/read-a-file-line-by-line-in-python/
 
-    count = 0
+    #count = 0
     # Strips the newline character
-    for line in freeweibo_posts:
-        count += 1
+    #for line in freeweibo_posts:
+    #    count += 1
     #    print("Line{}: {}".format(count, line.strip()))
-        post_list.append(line.strip())
+    #    post_list.append(line.strip())
 
     #post_list_sample = post_list[0:10]
-    post_list_sample = post_list
+    #post_list_sample = post_list
     ###############################################################################################################
     #             Extract all words in the model vocabulary and store in final_weibos list 
     ###############################################################################################################
-    for i in range(len(post_list_sample)):
-        final_weibos.append([])
-        for j in range(len(post_list_sample[i])):
-            word = post_list_sample[i][j]
-            if word in model_vocab:
+    #for i in range(len(post_list_sample)):
+    #    final_weibos.append([])
+    #    for j in range(len(post_list_sample[i])):
+    #        word = post_list_sample[i][j]
+    #        if word in model_vocab:
     #            print(word)
-                final_weibos[i].append(word)
+    #            final_weibos[i].append(word)
     #            print("Exists")
     #            print(word, "(",i,",",j,")")
-            else:
+    #        else:
     #            print(word)
-                final_weibos[i].append('*')
+    #            final_weibos[i].append('*')
 
     #            print("Doesnt Exist")
     #            print(word, "(",i,",",j,")")
@@ -297,18 +300,18 @@ def WEBIO():
     #               Extract all words not in the model vocabulary and store in oov list 
     ###############################################################################################################
 
-    for i in range(len(post_list_sample)):
-        oov.append([])
-        for j in range(len(post_list_sample[i])):
-            word = post_list_sample[i][j]
-            if word in model_vocab:
+    #for i in range(len(post_list_sample)):
+    #    oov.append([])
+    #    for j in range(len(post_list_sample[i])):
+    #        word = post_list_sample[i][j]
+    #        if word in model_vocab:
     #            print(word)
-                oov[i].append('*')
+    #            oov[i].append('*')
     #            print("Exists")
     #            print(word, "(",i,",",j,")")
-            else:
+    #        else:
     #            print(word)
-                oov[i].append(word)
+    #            oov[i].append(word)
     #            print("Doesnt Exist")
     #            print(word, "(",i,",",j,")")
 
@@ -316,8 +319,8 @@ def WEBIO():
 
     # Remove all occurrences of "*" in the final_weibos and oov lists
     #for i in range(len(final_weibos)):
-        final_weibos[i] = list(filter(('*').__ne__, final_weibos[i]))
-
+    #    final_weibos[i] = list(filter(('*').__ne__, final_weibos[i]))
+    #    final_weibos[i] = list(filter(('"').__ne__, final_weibos[i]))
         
     #for i in range(len(oov)):
     #    oov[i] = list(filter(('*').__ne__, oov[i]))
@@ -328,11 +331,89 @@ def WEBIO():
         
     '''
     # Print all words from each post that are not in the model vocabulary
-    #for i in range(len(oov)):
-    #    print(oov[i])
+    for i in range(len(oov)):
+        print(oov[i])
     '''
+    import pandas as pd
+    import csv
+    ##################################################################################################
+    #                                      Save post_list_sample to a csv
+    ##################################################################################################
+    post_list = []
+    post_list_sample = post_list
+    post_list_sample_df = pd.DataFrame(post_list_sample)
+    post_list_sample_df = post_list_sample_df.rename({0: 'weibos'},axis='columns')
+    post_list_sample_df.to_csv('post_list_sample.csv', sep='\t', index=False, encoding='utf-8')
 
 
+    ##################################################################################################
+    #                                      Save final_weibos to a csv
+    ##################################################################################################
+    # data to be written row-wise in csv file
+    final_weibos = []
+    data = final_weibos
+         
+    # opening the csv file in 'w+' mode
+    file = open('final_weibos.csv', 'w+', encoding='utf-8', newline ="")
+         
+    # writing the data into the file
+    #with file:   
+    write = csv.writer(file)
+    write.writerows(data)
+
+    # In[201]:
+    #In[61]:
+
+    import pandas as pd
+    import re
+    import streamlit as st
+
+    post_list_sample_new = pd.read_csv("C:\\Users\\avida\\FreeWeibo\\post_list_sample.csv")
+    post_list_sample_new.head()
+    post_list_sample_new.values.tolist()
+
+    # In[62]:
+
+
+    # Read in the the final_weibos.csv
+    # https://stackoverflow.com/questions/16923281/writing-a-pandas-dataframe-to-csv-file
+
+    import pandas as pd
+    import re
+
+    #print(final_weibos[0:3])
+    final_weibos_new = pd.read_csv("C:\\Users\\avida\\FreeWeibo\\final_weibos.csv", sep = '/t' ,header=None, engine = 'python')
+    #final_weibos_new.head()
+    final_weibos_new = final_weibos_new.values.tolist()
+
+
+    #x = final_weibos_new[1]
+    #newlist = [word for line in x for word in line.split(",")]
+    #print(newlist)
+    new_list =[]
+
+    for i in range(len(final_weibos_new)):
+        weibo_post = final_weibos_new[i]
+        weibo_post_words = [word for line in weibo_post for word in line.split(",")]
+        new_list.append(weibo_post_words)
+
+    ##print(final_weibos[2])
+
+    ##print(new_list[2])
+    final_weibos_new = new_list
+    print(final_weibos_new[2])
+
+    ##print(len(final_weibos))
+    #print(len(final_weibos_new))
+    st.write(len(final_weibos_new))
+
+    # In[63]:
+
+
+    post_list_sample_new = post_list_sample_new.values.tolist()
+
+
+    # In[64]:
     # In[201]:
 
 
@@ -349,6 +430,7 @@ def WEBIO():
     #print(len(model))
 
     # What is the upper bound of the number of weibos? We use this upper bound number in our input statement on line 51
+    
     max_num_weibos = len(post_list_sample)
 
     #print the word vector associated with the word
@@ -357,7 +439,7 @@ def WEBIO():
 
     # print top 10 most similar words to the input word
     #print(model.most_similar(positive='广东', negative=None, topn=10, restrict_vocab=None, indexer=None))
-    #print(model.most_similar(positive='人', negative=None, topn=10, restrict_vocab=None, indexer=None))
+    ##print(model.most_similar(positive='人', negative=None, topn=10, restrict_vocab=None, indexer=None))
 
     # compare similarities between sentences 
     #weibo1 = final_weibos[0]
@@ -387,13 +469,11 @@ def WEBIO():
     ##########################   Choose a weibo to find similar weibos ###############################
     #weibo1 = final_weibos[3]
     #weibo_input = input("Enter a weibo id between 0 and " + str(max_num_weibos) + " to find similar weibos:")
-    weibo_input = st.number_input("Enter a weibo id between 0 and " + str(max_num_weibos) + " to find similar weibos:")
+    label =  "Enter a weibo id between 0 and " + str(max_num_weibos - 1) + " to find similar weibos:"
     #print("Finding similar weibos to weibo id:", weibo_input, ".....")
-    st.write("Finding similar weibos to weibo id:", weibo_input, ".....")
-    #print("\r")
-    st.write("\r")
-
-    weibo = int(weibo_input)
+    weibo_input = st.number_input(label, 0, max_num_weibos-1, value=0, step=1, key='weibo_input')
+    st.write("These are similar weibos to weibo id entered:", weibo_input, ".....")
+    print("\r")
     weibo_test = final_weibos[weibo]
 
     sim_weibos = {}
@@ -422,11 +502,10 @@ def WEBIO():
     #print("\r")
     ##print(sim_weibos_sorted_descending)  #Uncomment this if you want to see the similar posts before the weibo_test is removed
 
-    #print("What weibos are similar to weibo id " +str(weibo_input) +" :")
-    st.write("What weibos are similar to weibo id " +str(weibo_input) +" :")
-    #print(weibo_test)
+    print("What weibos are similar to weibo id " +str(weibo_input) +" :")
+    st.write("What weibos are similar to weibo id" +str(weibo_input) +" :")
+    print(weibo_test)
     st.write(weibo_test)
-
     # remove the first key/value from the dict since it is comparing the weibo to itself
     # since we sort by ascending order the first key will always be the same as the weibo we're looking to compare
     # we use first_key when we dont know the key.  Comment the line below if you know the key such as
@@ -444,23 +523,20 @@ def WEBIO():
     print("\r")
     print(sim_weibos_sorted_descending)
     print("\r")
-   
 
-    #print("Top 3 Most Similar Weibos to Weibo ID " +str(weibo_input) + ":")
+    print("Top 3 Most Similar Weibos to Weibo ID " +str(weibo_input) + ":")
     st.write("Top 3 Most Similar Weibos to Weibo ID " +str(weibo_input) + ":")
     # Get the keys from sim_weibos_sorted_descending to display the top 3 similar posts
     sim_weibo_ids = list(sim_weibos_sorted_descending.keys())  # list of similar weibo ids compared to the weibo_test
     print("\r")
-    st.write("\r")
     for i in range(len(sim_weibo_ids[0:3])):  # sim_weibo_ids[0:4] we only select the top 3 similar weibos
         print("Weibo ID",sim_weibo_ids[i],":",final_weibos[i])
-    
+        st.write("Weibo ID",sim_weibo_ids[i],":",final_weibos[i])
 
     # In[215]:
 
 
-    #print(final_weibos[1])
-    st.write(final_weibos[1])
+    print(final_weibos[1])
 
 
     # In[423]:
@@ -469,7 +545,7 @@ def WEBIO():
     #################################################################################################### 
     #            Compute the cosine similarity between the first 10 posts and store in sim_matrix
     ####################################################################################################
-    st.subheader ("Sim Matrix showing the similarity between the first 10 Weibos")
+
     temp_list = []
     num_weibos = 10
     sim_matrix = [0]*num_weibos
@@ -483,10 +559,10 @@ def WEBIO():
         temp_list = []
 
     #print(len(sim_matrix))
-    #print(sim_matrix)
-    #print(max(sim_matrix))
-    st.table(sim_matrix)
-    st.table(max(sim_matrix))
+    print(sim_matrix)
+    print(max(sim_matrix))
+
+
     # In[424]:
 
 
@@ -495,7 +571,7 @@ def WEBIO():
     import numpy as np
     import seaborn as sns
     import matplotlib.pylab as plt
-    import streamlit as st
+
 
     fig = plt.figure(figsize = (15, 10))
     print(type(sim_matrix))
@@ -511,18 +587,17 @@ def WEBIO():
 
     # In[426]:
 
-
-    #sim_input = input("Enter a weibo id between 0 and " + str(num_weibos-1) + " to find the most similar weibo: ")
-    sim_input = st.number_input("Enter a weibo id between 0 and " + str(num_weibos-1) + " to find the most similar weibo: ")
-    #sim_input = int(sim_input)
-    sim_input = st.number_input(sim_input)
+    sim_label = "Enter a weibo id between 0 and " + str(num_weibos-1) + " to find the most similar weibo:"
+    sim_input = st.number_input(sim_label, 0, num_weibos-1, value=0, step=1, key='sim_input')
+    sim_input = input("Enter a weibo id between 0 and " + str(num_weibos-1) + " to find the most similar weibo: ")
+    sim_input = int(sim_input)
     remove_input = sim_matrix[sim_input].pop(sim_input)  # remove the weibo you're searching from the row since it will always be the largest
     #print(remove_input)
 
     sim_row = sim_matrix[sim_input] # get the row of the weibo
 
     val, idx = max((val, idx) for (idx, val) in enumerate(sim_row))
-    #print(val,idx)
+    print(val,idx)
     st.write(val)
     st.write(idx)
     #most_sim = max(sim_matrix[sim_input])
